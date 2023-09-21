@@ -204,8 +204,11 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const top = `┌${'─'.repeat(width - 2)}┐\n`;
+  const leftRight = `│${' '.repeat(width - 2)}│\n`.repeat(height - 2);
+  const bottom = `└${'─'.repeat(width - 2)}┘\n`;
+  return top + leftRight + bottom;
 }
 
 
@@ -225,8 +228,18 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  let str2 = '';
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz';
+
+  for (let i = 0; i < str.length; i += 1) {
+    if (letters.indexOf(str[i]) === -1) {
+      str2 += str[i];
+    } else {
+      str2 += str[i].replace(str[i], letters[letters.indexOf(str[i]) + 13]);
+    }
+  }
+  return str2;
 }
 
 /**
@@ -242,8 +255,8 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  return typeof value === 'string' || value instanceof String;
 }
 
 
@@ -271,8 +284,8 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  return 'A234567891JQK'.indexOf(value[0]) + '♣♦♥♠'.indexOf(value[value.length - 1]) * 13;
 }
 
 
